@@ -9,6 +9,7 @@ public class StrongboxDDSettings : ISettings
 {
     //Mandatory setting to allow enabling/disabling your plugin
     public ToggleNode Enable { get; set; } = new ToggleNode(false);
-
+    public ToggleNode PlaySound { get; set; } = new(false);
+    public ToggleNode DrawCircle { get; set; } = new(true);
     public RangeNode<float> Radius { get; set; } = new(82, 0, 400);
 }
