@@ -13,13 +13,14 @@ namespace StrongboxDD;
 
 public class StrongboxDD : BaseSettingsPlugin<StrongboxDDSettings>
 {
-    public List<long> _handledBoxes = new();
+    private List<long> _handledBoxes = new();
     private readonly string _soundFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Sounds", "alert.wav");
 
     public override bool Initialise()
     {
         return true;
     }
+    
     public override Job Tick()
     {
         return null;
@@ -30,8 +31,8 @@ public class StrongboxDD : BaseSettingsPlugin<StrongboxDDSettings>
         var detonateBoxes = GameController.EntityListWrapper.ValidEntitiesByType[EntityType.Chest]
             .Where(x => x.TryGetComponent<ObjectMagicProperties>(out var omp) &&
                     omp.Mods.Contains("ChestExplodeCorpses") &&
-                    x.TryGetComponent<StateMachine>(out var stateMachine) &&
-                    stateMachine.States[0].Value == 0);
+                    x.TryGetComponent<MinimapIcon>(out var mapIcon) &&
+                    mapIcon.IsHide == false);
 
 
         foreach (var box in detonateBoxes)
