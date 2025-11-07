@@ -20,7 +20,7 @@ public class StrongboxDD : BaseSettingsPlugin<StrongboxDDSettings>
     {
         return true;
     }
-    
+
     public override Job Tick()
     {
         return null;
@@ -29,7 +29,8 @@ public class StrongboxDD : BaseSettingsPlugin<StrongboxDDSettings>
     public override void Render()
     {
         var detonateBoxes = GameController.EntityListWrapper.ValidEntitiesByType[EntityType.Chest]
-            .Where(x => x.TryGetComponent<ObjectMagicProperties>(out var omp) &&
+            .Where(x => x.DistancePlayer <= 150 &&
+                    x.TryGetComponent<ObjectMagicProperties>(out var omp) &&
                     omp.Mods.Contains("ChestExplodeCorpses") &&
                     x.TryGetComponent<MinimapIcon>(out var mapIcon) &&
                     mapIcon.IsHide == false);
